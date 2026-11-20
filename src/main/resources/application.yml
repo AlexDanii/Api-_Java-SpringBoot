@@ -1,0 +1,34 @@
+server:
+  port: ${SERVER_PORT:5001}
+  tomcat:
+    threads:
+      max: 200
+    accept-count: 100
+
+spring:
+  jackson:
+    deserialization:
+      accept-float-as-int: false
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5433}/${DB_NAME:orders_db}
+    username: ${DB_USER:postgres}
+    password: ${DB_PASSWORD:postgres}
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 5
+      connection-timeout: 30000
+  jpa:
+    hibernate:
+      ddl-auto: none
+    open-in-view: false
+    properties:
+      hibernate:
+        jdbc:
+          batch_size: 20
+        order_inserts: true
+        order_updates: true
+
+logging:
+  level:
+    root: INFO
+    com.benchmark.orders: INFO
